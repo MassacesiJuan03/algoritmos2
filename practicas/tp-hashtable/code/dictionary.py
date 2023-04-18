@@ -1,11 +1,4 @@
 from random import randint
-from linkedlist import add, search, length, delete
-class LinkedList:
-    head = None
-class Node:
-    value = None
-    nextNode = None
-
 #Ejercico 1 (implementación)
 #1.
 """insert(D,key, value)
@@ -15,7 +8,8 @@ encadenamiento. En caso de keys duplicados se anexan a la lista.
 Entrada: el diccionario sobre el cual se quiere realizar la inserción
 y el valor del key a insertar
 Salida: Devuelve D"""
-def insert(D,key,value,list_ab):
+#Insert with Universal-function
+def insertWithUniversalFunction(D,key,value,list_ab):
     if len(D) == 0:
         return None,None
     #Calculamos la nueva key para asignar un nuevo slot
@@ -82,6 +76,22 @@ def universalFunctionInsertR(D,key,value,p,list_ab,vuelta):
             return D,list_ab
         else:
             return universalFunctionInsert(D,key,value,p,list_ab,vuelta+1)
+
+#Insert without Universal-function
+def insert(D,key,value):
+    if len(D) == 0:
+        return None
+    #Calculamos la nueva key para asignar un nuevo slot
+    position = key % len(D) 
+    if D[position] == None:
+        #Si el slot es Null, creamos una lista y agregamos la tupla(key,value)
+        D[position] = []
+        D[position].append((key,value))
+    else:
+        #Agregamos la tupla(key,value) a la lista en el slot dado por la hash-function
+        D[position].append((key,value))
+    return D
+
 #2.        
 """search(D,key)
 Descripción: Busca un key en el diccionario
@@ -105,7 +115,8 @@ def primoMayor(D):
             p += 1   
     return primo
 
-def search(D,key,list_ab):
+#Search with Universal-function
+def searchWithUniversalFunction(D,key,list_ab):
     if len(D) == 0:
         return None,None
     #Calculo la nueva key usando la hash-function
@@ -136,6 +147,22 @@ def search(D,key,list_ab):
             if List[i][0] == key:
                 return List[i][1],List
         return None,None
+    
+#Search without Universal-function
+def search(D,key):
+    if len(D) == 0:
+        return None
+    #Calculo la nueva key usando la hash-function
+    position = key % len(D)
+    if D[position] == None:
+        return None
+    else:
+        #Buscamos el value de la lista dentro del slot dado por la hash-function
+        List = D[position]
+        for i in range(len(List)):
+            if List[i][0] == key:
+                return List[i][1]
+        return None
 #3.            
 """delete(D,key)
 Descripción: Elimina un key en la posición determinada por la función
@@ -144,7 +171,8 @@ Poscondición: Se debe marcar como nulo el key a eliminar.
 Entrada: El diccionario sobre el se quiere realizar la eliminación y
 el valor del key que se va a eliminar.
 Salida: Devuelve D"""
-def delete(D,key,list_ab):
+#Delete with Universal-function
+def deleteWithUniversalFunction(D,key,list_ab):
     if len(D) == 0:
         return None
     value,ListValue = search(D,key,list_ab)
@@ -155,3 +183,19 @@ def delete(D,key,list_ab):
                 return D
     else:
         return D
+
+#Delete without Universal-function
+def delete(D,key):
+    if len(D) == 0:
+        return None
+    position = key % len(D)
+    if D[position] != None:
+        ListValue = D[position]
+        for i in range(len(ListValue)):
+            if ListValue[i][0] == key:
+                ListValue.pop(i)
+                break
+        return D
+    else:
+        return D
+    
