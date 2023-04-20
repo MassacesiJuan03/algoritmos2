@@ -61,11 +61,11 @@ def PpermutacionS(D,s,p):
         #Buscamos cada letra de P en el hash
         contLetrasDeP = 0
         for i in range(len(p)):
-            value = search(D,ord(p[i]),p[i])
+            value = search(D,ord(p[i]))
             if value != None:
                 contLetrasDeP += 1
         #Verificar si P es una permutación de S
-        if contLetrasDeP == len(s):
+        if contLetrasDeP == len(p):
             return True 
         else:
             return False
