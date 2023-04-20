@@ -70,12 +70,12 @@ def PpermutacionS(D,s,p):
         else:
             return False
             
-s = "hola"
-p = "ahlo"
+stringS = "hola"
+stringP = "ahlo"
 D = []
 for i in range(37):
     D.append(None)
-bool = PpermutacionS(D,s,p)
+bool = PpermutacionS(D,stringS,stringP)
 
 #Ejercicio 5
 """Implemente un algoritmo que devuelva True si la lista que recibe de entrada tiene todos sus
