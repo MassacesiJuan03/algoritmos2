@@ -55,23 +55,18 @@ def PpermutacionS(D,s,p):
     elif s == p:
         return False
     else:
-        #Calcular el código ascii de cada letra de S y P. Almacenarlo en una variable
-        SvalueAscii = 0
-        PvalueAscii = 0
+        #Insertamos cada letra de S en el hash
         for i in range(len(s)):
-            SvalueAscii += ord(s[i])
-            PvalueAscii += ord(p[i])
-        #Calcular la nueva posición del hashTable
-        position = SvalueAscii % len(D)
-        #Agregar la string(S) al slot correspondiente del hashTable
-        D = insert(D,SvalueAscii,s)
-        #Verificar si P es una permutación de S
-        value = search(D,PvalueAscii)
-        if value != None:
-            if value == s:
-                return True
-            else:
-                return False
+            insert(D,ord(s[i]),s[i])
+        #Buscamos cada letra de P en el hash
+        contLetrasDeP = 0
+        for i in range(len(p)):
+            value = search(D,ord(p[i]),p[i])
+            if value != None:
+                contLetrasDeP += 1
+        #Verificar si P es una permutación de S
+        if contLetrasDeP == len(s):
+            return True 
         else:
             return False
             
