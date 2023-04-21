@@ -62,21 +62,21 @@ def PpermutacionS(D,s,p):
         contLetrasDeP = 0
         for i in range(len(p)):
             value = search(D,ord(p[i]))
+            delete(D,ord(p[i]))
             if value != None:
                 contLetrasDeP += 1
-        #Verificar si P es una permutación de S
+        #Verificar si P es una permutación de S
         if contLetrasDeP == len(p):
             return True 
         else:
             return False
             
-stringS = "hola"
-stringP = "ahlo"
+s = "hola"
+p = "ahlo"
 D = []
 for i in range(37):
     D.append(None)
-bool = PpermutacionS(D,stringS,stringP)
-
+Bool = PpermutacionS(D,s,p)
 #Ejercicio 5
 """Implemente un algoritmo que devuelva True si la lista que recibe de entrada tiene todos sus
 elementos únicos, y Falso en caso contrario. Justificar el coste en tiempo de la solución
@@ -124,7 +124,7 @@ def CodigoPostal(D,code):
             #Calcular el número aleatorio del 0-9
             number = random.randint(0,9)
             newCode = newCode + str(number)
-    #Calcular la posición en el slot mediante la hash-function
+    #Calcular la key del código postal
     #int(newCode[1:5]), newCode[inicio:final-1]
     newKey = (ord(newCode[0])*10^4) + int(newCode[1:5]) + (ord(newCode[5])*10^3) + (ord(newCode[6])*10^2) + (ord(newCode[7])*10)
     #Insertar el código en el diccionario
@@ -212,7 +212,6 @@ def SearchOcurrencia(D,a1,p1):
             keyA1 = 0
             pow = len(List[i])
             for j in range(len(List[i])):
-                print(pow)
                 keyA1 += ord(List[i][j]) * 10^(pow)
                 pow -= 1
             #Vefificar si se encontro la ocurrencia de a1 en p1 y retornar el índice donde comienza
@@ -232,15 +231,8 @@ firstIndex = SearchOcurrencia(D,string1,string2)
 algoritmo que utilice una tabla de hash para determinar si S ⊆ T (S subconjunto de T). ¿Cuál
 es la complejidad temporal del caso promedio del algoritmo propuesto?"""
 def SsubconjuntoT(D,S,T):
-    #Si T es un subconjunto vacío y S no, no van a existir elementos de S en T
-    if T == [] and S != []:
+    if len(S) != len(T):
         return False
-    #Subconjuntos Vacios 
-    elif T == [] and S == []:
-        return True
-    #El vacío es subconjunto de todo conjunto 
-    elif T != [] and S == []:
-        return True 
     #Insertar T en el hash
     for i in range(len(T)):
         insert(D,T[i],T[i]) 
@@ -250,9 +242,9 @@ def SsubconjuntoT(D,S,T):
         value = search(D,S[i])
         if value == S[i]:
             contSubconjunto += 1
-    #Veficar que S es un subconjunto de T
-    if len(S) == contSubconjunto:
-        return True
+    #Veficar que es un subconjunto de T
+    if contSubconjunto == len(T):
+        return True
     else:
         return False             
         
@@ -260,5 +252,5 @@ D = []
 for i in range(37):
     D.append(None)               
 S = [10,9,8,7,6,5]
-T = [5,6,7,8]
+T = [5,6,7,8,9,10]
 Bool = SsubconjuntoT(D,S,T)    
