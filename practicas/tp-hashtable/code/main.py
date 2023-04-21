@@ -231,26 +231,34 @@ firstIndex = SearchOcurrencia(D,string1,string2)
 algoritmo que utilice una tabla de hash para determinar si S ⊆ T (S subconjunto de T). ¿Cuál
 es la complejidad temporal del caso promedio del algoritmo propuesto?"""
 def SsubconjuntoT(D,S,T):
-    if len(S) != len(T):
+    if S != [] and T == []:
         return False
-    #Insertar T en el hash
-    for i in range(len(T)):
-        insert(D,T[i],T[i]) 
-    #Buscar S en el hash
-    contSubconjunto = 0
-    for i in range(len(S)):
-        value = search(D,S[i])
-        if value == S[i]:
-            contSubconjunto += 1
-    #Veficar que es un subconjunto de T
-    if contSubconjunto == len(T):
+    #El Vacio es subconjunto de todo conjunto
+    if S == [] and T != []:
+        return True
+    #Un conjunto es subconjunto de si mismo
+    elif S == T:
         return True
     else:
-        return False             
+        #Insertar T en el hash
+        for i in range(len(T)):
+            insert(D,T[i],T[i]) 
+        #Buscar S en el hash
+        contSubconjunto = 0
+        for i in range(len(S)):
+            value = search(D,S[i])
+            if value == S[i]:
+                contSubconjunto += 1
+        #Veficar que es un subconjunto de T
+        if contSubconjunto == len(S):
+            return True
+        else:
+            return False             
         
 D = []
 for i in range(37):
     D.append(None)               
-S = [10,9,8,7,6,5]
-T = [5,6,7,8,9,10]
+S = [5,6,7,8,9,10]
+T = [10,9,8,7,6,5]
 Bool = SsubconjuntoT(D,S,T)    
+print(Bool)
