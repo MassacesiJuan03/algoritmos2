@@ -224,8 +224,7 @@ def Rabin_Karp(String, Pattern):
     if String == "" or Pattern == "":
         return
     #Se calcula el hash-key del patrón.
-    hashkeyPattern = hash_function(Pattern)
-    #print(hashkeyPattern)
+    hashkeyPattern = hash_function(Pattern)
     n =  len(String)
     m = len(Pattern)
     for s in range(0,n-m+1):
